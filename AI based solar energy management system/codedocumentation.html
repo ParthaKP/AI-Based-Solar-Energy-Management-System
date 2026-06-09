@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Smart Solar Monitoring System - Code Documentation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #fff;
+    }
+
+    .cover-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+      color: white;
+      page-break-after: always;
+      padding: 40px;
+    }
+
+    .cover-page h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .cover-page .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .cover-page .tech-stack {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .cover-page .tech-badge {
+      background: rgba(255,255,255,0.1);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .toc {
+      padding: 40px;
+      background: #f8fafc;
+      page-break-after: always;
+    }
+
+    .toc h2 {
+      color: #0f172a;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #10b981;
+    }
+
+    .toc ul {
+      list-style: none;
+    }
+
+    .toc li {
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .toc a {
+      color: #334155;
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      color: #10b981;
+    }
+
+    .module {
+      page-break-before: always;
+      padding: 40px;
+    }
+
+    .module-header {
+      background: linear-gradient(135deg, #0f172a, #1e40af);
+      color: white;
+      padding: 30px;
+      margin: -40px -40px 30px -40px;
+    }
+
+    .module-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .module-header .path {
+      font-family: monospace;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .module-header .description {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 12px;
+      line-height: 1.5;
+      font-family: 'Fira Code', 'Consolas', monospace;
+    }
+
+    .keyword { color: #c084fc; }
+    .string { color: #34d399; }
+    .comment { color: #64748b; font-style: italic; }
+    .function { color: #60a5fa; }
+    .type { color: #fbbf24; }
+    .number { color: #f472b6; }
+
+    @media print {
+      .module { page-break-before: always; }
+      pre { font-size: 10px; }
+      .cover-page { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .module-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cover Page -->
+<div class="cover-page">
+  <h1>AI Smart Solar Monitoring System</h1>
+  <p class="subtitle">Complete Code Documentation for IoT-based Solar Panel Monitoring with AI-powered Predictions and Smart Load Management</p>
+  <div class="tech-stack">
+    <span class="tech-badge">React 18</span>
+    <span class="tech-badge">TypeScript</span>
+    <span class="tech-badge">Supabase</span>
+    <span class="tech-badge">Edge Functions</span>
+    <span class="tech-badge">Tailwind CSS</span>
+    <span class="tech-badge">Recharts</span>
+    <span class="tech-badge">Framer Motion</span>
+    <span class="tech-badge">PostgreSQL</span>
+  </div>
+  <p style="margin-top: 60px; opacity: 0.7;">Generated: June 2026</p>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ul>
+    <li><a href="#app">1. App.tsx - Application Entry & Routing</a></li>
+    <li><a href="#main">2. main.tsx - React Bootstrap</a></li>
+    <li><a href="#types">3. lib/types.ts - TypeScript Interfaces</a></li>
+    <li><a href="#supabase">4. lib/supabase.ts - Database Client</a></li>
+    <li><a href="#engine">5. lib/engine.ts - Business Logic Engine</a></li>
+    <li><a href="#data">6. lib/data.ts - Configuration Constants</a></li>
+    <li><a href="#useSensorData">7. hooks/useSensorData.ts - Sensor Data Hook</a></li>
+    <li><a href="#useAuth">8. hooks/useAuth.tsx - Authentication Hook</a></li>
+    <li><a href="#useToast">9. hooks/useToast.tsx - Toast Notifications</a></li>
+    <li><a href="#MetricCard">10. common/MetricCard.tsx - Metric Display</a></li>
+    <li><a href="#GaugeCard">11. common/GaugeCard.tsx - Gauge Display</a></li>
+    <li><a href="#AppLayout">12. layout/AppLayout.tsx - Main Layout</a></li>
+    <li><a href="#Dashboard">13. dashboard/DashboardPage.tsx - Main Dashboard</a></li>
+    <li><a href="#Prediction">14. prediction/PredictionPage.tsx - AI Predictions</a></li>
+    <li><a href="#EdgeFunction">15. supabase/functions/solar-api - Edge Function API</a></li>
+    <li><a href="#Schema">16. Database Schema - SQL Migration</a></li>
+  </ul>
+</div>
+
+<!-- Module 1: App.tsx -->
+<div class="module" id="app">
+  <div class="module-header">
+    <h2>1. App.tsx - Application Entry & Routing</h2>
+    <p class="path">src/App.tsx</p>
+    <p class="description">Main application component with React Router setup, protected routes, and authentication guards.</p>
+  </div>
+  <pre><code>import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './hooks/useAuth';
+import { ThemeProvider } from './hooks/useTheme';
+import { ToastProvider } from './hooks/useToast';
+import AppLayout from './components/layout/AppLayout';
+import LandingPage from './components/landing/LandingPage';
+import LoginPage from './components/auth/LoginPage';
+import SignupPage from './components/auth/SignupPage';
+import DashboardPage from './components/dashboard/DashboardPage';
+import PredictionPage from './components/prediction/PredictionPage';
+import FaultPage from './components/fault/FaultPage';
+import LoadPage from './components/load/LoadPage';
+import BillingPage from './components/billing/BillingPage';
+import WeatherPage from './components/weather/WeatherPage';
+import SustainabilityPage from './components/sustainability/SustainabilityPage';
+import AnalyticsPage from './components/analytics/AnalyticsPage';
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  if (loading) return (
+    &lt;div className="min-h-screen bg-slate-950 flex items-center justify-center"&gt;
+      &lt;div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" /&gt;
+    &lt;/div&gt;
+  );
+  if (!user) return &lt;Navigate to="/login" replace /&gt;;
+  return &lt;&gt;{children}&lt;/&gt;;
+}
+
+function PublicRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (user) return &lt;Navigate to="/dashboard" replace /&gt;;
+  return &lt;&gt;{children}&lt;/&gt;;
+}
+
+function AppRoutes() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;LandingPage /&gt;} /&gt;
+      &lt;Route path="/login" element={&lt;PublicRoute&gt;&lt;LoginPage /&gt;&lt;/PublicRoute&gt;} /&gt;
+      &lt;Route path="/signup" element={&lt;PublicRoute&gt;&lt;SignupPage /&gt;&lt;/PublicRoute&gt;} /&gt;
+      &lt;Route element={&lt;ProtectedRoute&gt;&lt;AppLayout /&gt;&lt;/ProtectedRoute&gt;}&gt;
+        &lt;Route path="/dashboard" element={&lt;DashboardPage /&gt;} /&gt;
+        &lt;Route path="/predictions" element={&lt;PredictionPage /&gt;} /&gt;
+        &lt;Route path="/faults" element={&lt;FaultPage /&gt;} /&gt;
+        &lt;Route path="/load" element={&lt;LoadPage /&gt;} /&gt;
+        &lt;Route path="/billing" element={&lt;BillingPage /&gt;} /&gt;
+        &lt;Route path="/weather" element={&lt;WeatherPage /&gt;} /&gt;
+        &lt;Route path="/sustainability" element={&lt;SustainabilityPage /&gt;} /&gt;
+        &lt;Route path="/analytics" element={&lt;AnalyticsPage /&gt;} /&gt;
+      &lt;/Route&gt;
+      &lt;Route path="*" element={&lt;Navigate to="/" replace /&gt;} /&gt;
+    &lt;/Routes&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;ThemeProvider&gt;
+        &lt;AuthProvider&gt;
+          &lt;ToastProvider&gt;
+            &lt;AppRoutes /&gt;
+          &lt;/ToastProvider&gt;
+        &lt;/AuthProvider&gt;
+      &lt;/ThemeProvider&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}</code></pre>
+</div>
+
+<!-- Module 2: main.tsx -->
+<div class="module" id="main">
+  <div class="module-header">
+    <h2>2. main.tsx - React Bootstrap</h2>
+    <p class="path">src/main.tsx</p>
+    <p class="description">React application entry point that mounts the root App component to the DOM.</p>
+  </div>
+  <pre><code>import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+
+createRoot(document.getElementById('root')!).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);</code></pre>
+</div>
+
+<!-- Module 3: types.ts -->
+<div class="module" id="types">
+  <div class="module-header">
+    <h2>3. lib/types.ts - TypeScript Interfaces</h2>
+    <p class="path">src/lib/types.ts</p>
+    <p class="description">All TypeScript type definitions for the application including SensorData, Prediction, Alert, and other domain models.</p>
+  </div>
+  <pre><code>export type UserRole = 'admin' | 'user';
+
+export interface Profile {
+  id: string;
+  email: string;
+  full_name: string;
+  role: UserRole;
+  household_name: string;
+  avatar_url: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SensorData {
+  id: string;
+  user_id: string;
+  voltage: number;
+  current: number;
+  power: number;
+  temperature: number;
+  humidity: number;
+  light_intensity: number;
+  panel_efficiency: number;
+  device_id: string;
+  is_online: boolean;
+  recorded_at: string;
+}
+
+export interface Prediction {
+  id: string;
+  user_id: string;
+  predicted_power: number;
+  predicted_energy: number;
+  predicted_bill: number;
+  confidence_score: number;
+  prediction_type: 'hourly' | 'daily' | 'weekly' | 'monthly';
+  model_version: string;
+  input_features: Record&lt;string, number&gt;;
+  target_date: string;
+  created_at: string;
+}
+
+export type AlertType = 'fault' | 'high_usage' | 'low_efficiency' | 'device_offline' | 'overload_risk' | 'weather_warning';
+export type AlertSeverity = 'info' | 'warning' | 'critical';
+
+export interface Alert {
+  id: string;
+  user_id: string;
+  alert_type: AlertType;
+  severity: AlertSeverity;
+  title: string;
+  message: string;
+  is_read: boolean;
+  sensor_value: number;
+  threshold_value: number;
+  created_at: string;
+}
+
+export interface SustainabilityMetric {
+  id: string;
+  user_id: string;
+  co2_reduction_kg: number;
+  renewable_percentage: number;
+  energy_efficiency_score: number;
+  carbon_savings_kg: number;
+  trees_equivalent: number;
+  sustainability_score: number;
+  period: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  recorded_at: string;
+}
+
+export interface ApplianceUsage {
+  id: string;
+  user_id: string;
+  appliance_name: string;
+  power_rating_watts: number;
+  recommended_runtime_hours: number;
+  actual_runtime_hours: number;
+  is_active: boolean;
+  category: 'essential' | 'comfort' | 'luxury' | 'general';
+  priority: number;
+  recorded_at: string;
+}
+
+export interface WeatherLog {
+  id: string;
+  user_id: string;
+  weather_condition: string;
+  temperature_c: number;
+  humidity_percent: number;
+  cloud_cover_percent: number;
+  wind_speed_kmh: number;
+  solar_intensity: number;
+  uv_index: number;
+  forecast: WeatherForecastItem[];
+  recorded_at: string;
+}
+
+export interface WeatherForecastItem {
+  time: string;
+  condition: string;
+  temperature: number;
+  cloud_cover: number;
+  solar_intensity: number;
+}
+
+export interface BillingData {
+  id: string;
+  user_id: string;
+  energy_consumed_kwh: number;
+  energy_generated_kwh: number;
+  energy_exported_kwh: number;
+  grid_dependency_percent: number;
+  solar_contribution_percent: number;
+  daily_cost: number;
+  monthly_cost: number;
+  solar_savings: number;
+  tariff_rate: number;
+  period: 'daily' | 'monthly';
+  recorded_at: string;
+}
+
+export interface LoadManagementLog {
+  id: string;
+  user_id: string;
+  available_solar_watts: number;
+  total_demand_watts: number;
+  recommended_appliances: ApplianceRecommendation[];
+  avoided_appliances: ApplianceRecommendation[];
+  optimization_score: number;
+  weather_condition: string;
+  strategy: 'eco' | 'balanced' | 'comfort';
+  recorded_at: string;
+}
+
+export interface ApplianceRecommendation {
+  name: string;
+  power_watts: number;
+  max_runtime_hours: number;
+  category: string;
+  priority: number;
+}
+
+export interface Appliance {
+  name: string;
+  power_watts: number;
+  category: 'essential' | 'comfort' | 'luxury' | 'general';
+  priority: number;
+  icon: string;
+}</code></pre>
+</div>
+
+<!-- Module 4: supabase.ts -->
+<div class="module" id="supabase">
+  <div class="module-header">
+    <h2>4. lib/supabase.ts - Database Client</h2>
+    <p class="path">src/lib/supabase.ts</p>
+    <p class="description">Supabase client initialization with environment variables for database connection.</p>
+  </div>
+  <pre><code>import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);</code></pre>
+</div>
+
+<!-- Module 5: engine.ts -->
+<div class="module" id="engine">
+  <div class="module-header">
+    <h2>5. lib/engine.ts - Business Logic Engine</h2>
+    <p class="path">src/lib/engine.ts</p>
+    <p class="description">Core algorithms for solar power prediction, fault detection, load management, and sustainability calculations.</p>
+  </div>
+  <pre><code>import type { ApplianceRecommendation } from './types';
+import { APPLIANCE_DATABASE, CO2_FACTOR_KG_PER_KWH, TARIFF_RATES } from './data';
+
+export function calculateLoadRecommendations(
+  availableSolarWatts: number,
+  weatherCondition: string,
+  _predictedPower: number,
+  _currentDemand: number,
+  strategy: 'eco' | 'balanced' | 'comfort' = 'balanced'
+): { recommended: ApplianceRecommendation[]; avoided: ApplianceRecommendation[]; optimizationScore: number } {
+  let effectiveSolar = availableSolarWatts;
+
+  if (weatherCondition === 'cloudy') effectiveSolar *= 0.5;
+  if (weatherCondition === 'overcast') effectiveSolar *= 0.2;
+  if (weatherCondition === 'rainy') effectiveSolar *= 0.1;
+
+  effectiveSolar = effectiveSolar * 0.85;
+
+  const sortedAppliances = [...APPLIANCE_DATABASE].sort((a, b) =&gt; a.priority - b.priority);
+
+  const recommended: ApplianceRecommendation[] = [];
+  const avoided: ApplianceRecommendation[] = [];
+  let remainingPower = effectiveSolar;
+
+  for (const appliance of sortedAppliances) {
+    if (remainingPower &gt;= appliance.power_watts) {
+      const maxHours = Math.round((remainingPower / appliance.power_watts) * (strategy === 'eco' ? 0.6 : strategy === 'comfort' ? 1.0 : 0.8) * 10) / 10;
+      recommended.push({
+        name: appliance.name,
+        power_watts: appliance.power_watts,
+        max_runtime_hours: Math.min(maxHours, strategy === 'comfort' ? 10 : 8),
+        category: appliance.category,
+        priority: appliance.priority,
+      });
+      if (strategy !== 'comfort') {
+        remainingPower -= appliance.power_watts * 0.5;
+      } else {
+        remainingPower -= appliance.power_watts * 0.3;
+      }
+    } else {
+      avoided.push({
+        name: appliance.name,
+        power_watts: appliance.power_watts,
+        max_runtime_hours: 0,
+        category: appliance.category,
+        priority: appliance.priority,
+      });
+    }
+  }
+
+  const totalRecommended = recommended.reduce((s, a) =&gt; s + a.power_watts, 0);
+  const totalAvailable = APPLIANCE_DATABASE.reduce((s, a) =&gt; s + a.power_watts, 0);
+  const optimizationScore = Math.round((totalRecommended / totalAvailable) * 100);
+
+  return { recommended, avoided, optimizationScore };
+}
+
+export function estimateBill(
+  energyConsumedKwh: number,
+  energyGeneratedKwh: number,
+  tariffRate: number = TARIFF_RATES.domestic_standard
+): { dailyCost: number; monthlyCost: number; solarSavings: number; gridDependency: number; solarContribution: number } {
+  const gridEnergy = Math.max(0, energyConsumedKwh - energyGeneratedKwh);
+  const solarContribution = energyConsumedKwh &gt; 0 ? (energyGeneratedKwh / energyConsumedKwh) * 100 : 0;
+  const gridDependency = 100 - Math.min(100, solarContribution);
+
+  const dailyCost = gridEnergy * tariffRate;
+  const monthlyCost = dailyCost * 30;
+  const solarSavings = Math.min(energyGeneratedKwh, energyConsumedKwh) * tariffRate;
+
+  return {
+    dailyCost: Math.round(dailyCost * 100) / 100,
+    monthlyCost: Math.round(monthlyCost * 100) / 100,
+    solarSavings: Math.round(solarSavings * 100) / 100,
+    gridDependency: Math.round(gridDependency),
+    solarContribution: Math.round(Math.min(100, solarContribution)),
+  };
+}
+
+export function calculateSustainability(
+  energyGeneratedKwh: number,
+  energyConsumedKwh: number
+): { co2Reduction: number; carbonSavings: number; treesEquivalent: number; renewablePercentage: number; efficiencyScore: number } {
+  const co2Reduction = energyGeneratedKwh * CO2_FACTOR_KG_PER_KWH;
+  const carbonSavings = co2Reduction;
+  const treesEquivalent = (co2Reduction / 1000) * 45;
+  const renewablePercentage = energyConsumedKwh &gt; 0 ? (energyGeneratedKwh / energyConsumedKwh) * 100 : 0;
+  const efficiencyScore = Math.min(100, renewablePercentage * 1.2);
+
+  return {
+    co2Reduction: Math.round(co2Reduction * 100) / 100,
+    carbonSavings: Math.round(carbonSavings * 100) / 100,
+    treesEquivalent: Math.round(treesEquivalent * 100) / 100,
+    renewablePercentage: Math.round(Math.min(100, renewablePercentage)),
+    efficiencyScore: Math.round(efficiencyScore),
+  };
+}
+
+export function detectFaults(readings: {
+  voltage: number;
+  current: number;
+  power: number;
+  temperature: number;
+  panelEfficiency: number;
+}): { isAnomaly: boolean; faults: { type: string; severity: 'info' | 'warning' | 'critical'; message: string }[] } {
+  const faults: { type: string; severity: 'info' | 'warning' | 'critical'; message: string }[] = [];
+
+  if (readings.voltage &lt; 12) {
+    faults.push({
+      type: 'voltage_anomaly',
+      severity: 'critical',
+      message: `Voltage at ${readings.voltage.toFixed(1)}V is critically low. Expected 18-24V range.`,
+    });
+  } else if (readings.voltage &lt; 16) {
+    faults.push({
+      type: 'voltage_anomaly',
+      severity: 'warning',
+      message: `Voltage at ${readings.voltage.toFixed(1)}V is below optimal range.`,
+    });
+  }
+
+  if (readings.current &lt; 0.5 && readings.voltage &gt; 10) {
+    faults.push({
+      type: 'current_anomaly',
+      severity: 'warning',
+      message: `Current at ${readings.current.toFixed(2)}A is unusually low for active voltage.`,
+    });
+  }
+
+  if (readings.power &lt; 10 && readings.voltage &gt; 10 && readings.current &gt; 0.3) {
+    faults.push({
+      type: 'power_drop',
+      severity: 'warning',
+      message: 'Power output dropped unexpectedly. Possible panel issue.',
+    });
+  }
+
+  if (readings.panelEfficiency &lt; 10) {
+    faults.push({
+      type: 'low_efficiency',
+      severity: readings.panelEfficiency &lt; 5 ? 'critical' : 'warning',
+      message: `Panel efficiency at ${readings.panelEfficiency.toFixed(1)}%. ${readings.panelEfficiency &lt; 5 ? 'Check for damage or shading.' : 'Consider cleaning panels.'}`,
+    });
+  }
+
+  if (readings.temperature &gt; 65) {
+    faults.push({
+      type: 'overheating',
+      severity: 'critical',
+      message: `Temperature at ${readings.temperature.toFixed(1)}C exceeds safe limit. Risk of damage.`,
+    });
+  } else if (readings.temperature &gt; 55) {
+    faults.push({
+      type: 'overheating',
+      severity: 'warning',
+      message: `Temperature at ${readings.temperature.toFixed(1)}C is high. Monitor closely.`,
+    });
+  }
+
+  return {
+    isAnomaly: faults.length &gt; 0,
+    faults,
+  };
+}
+
+export function predictSolarPower(
+  temperature: number,
+  humidity: number,
+  lightIntensity: number,
+  cloudCover: number
+): { predictedPower: number; confidence: number; hourlyForecast: { hour: number; power: number }[] } {
+  const baseEfficiency = 0.18;
+  const tempFactor = Math.max(0, 1 - Math.abs(temperature - 25) * 0.004);
+  const humidityFactor = Math.max(0, 1 - humidity * 0.005);
+  const lightFactor = Math.min(1, lightIntensity / 1000);
+  const cloudFactor = Math.max(0, 1 - cloudCover / 100);
+
+  const maxPanelWatts = 300;
+  const predictedPower = maxPanelWatts * baseEfficiency * tempFactor * humidityFactor * lightFactor * cloudFactor * 5.5;
+
+  const confidence = 70 + lightFactor * 15 + cloudFactor * 10 + (1 - humidity / 100) * 5;
+
+  const hourlyForecast = Array.from({ length: 24 }, (_, hour) =&gt; {
+    const solarAngle = Math.max(0, Math.sin(((hour - 6) / 12) * Math.PI));
+    const hourPower = predictedPower * solarAngle * (0.9 + Math.random() * 0.1);
+    return { hour, power: Math.round(hourPower * 100) / 100 };
+  });
+
+  return {
+    predictedPower: Math.round(predictedPower * 100) / 100,
+    confidence: Math.round(Math.min(95, confidence) * 10) / 10,
+    hourlyForecast,
+  };
+}</code></pre>
+</div>
+
+<!-- Module 6: data.ts -->
+<div class="module" id="data">
+  <div class="module-header">
+    <h2>6. lib/data.ts - Configuration Constants</h2>
+    <p class="path">src/lib/data.ts</p>
+    <p class="description">Appliance database, tariff rates, and CO2 conversion factors.</p>
+  </div>
+  <pre><code>import type { Appliance } from './types';
+
+export const APPLIANCE_DATABASE: Appliance[] = [
+  { name: 'Ceiling Fan', power_watts: 75, category: 'comfort', priority: 3, icon: 'Fan' },
+  { name: 'LED Bulb (10W)', power_watts: 10, category: 'essential', priority: 1, icon: 'Lightbulb' },
+  { name: 'LED Bulb (20W)', power_watts: 20, category: 'essential', priority: 1, icon: 'Lightbulb' },
+  { name: 'Refrigerator', power_watts: 150, category: 'essential', priority: 1, icon: 'Refrigerator' },
+  { name: 'Laptop', power_watts: 65, category: 'essential', priority: 2, icon: 'Laptop' },
+  { name: 'TV (LED 32")', power_watts: 50, category: 'comfort', priority: 3, icon: 'Tv' },
+  { name: 'TV (LED 55")', power_watts: 100, category: 'comfort', priority: 3, icon: 'Tv' },
+  { name: 'Washing Machine', power_watts: 500, category: 'general', priority: 4, icon: 'WashingMachine' },
+  { name: 'Water Pump', power_watts: 750, category: 'essential', priority: 2, icon: 'Droplets' },
+  { name: 'Air Conditioner (1 ton)', power_watts: 1200, category: 'luxury', priority: 5, icon: 'AirVent' },
+  { name: 'Microwave Oven', power_watts: 800, category: 'general', priority: 4, icon: 'Microwave' },
+  { name: 'Iron', power_watts: 1000, category: 'general', priority: 4, icon: 'Iron' },
+  { name: 'Phone Charger', power_watts: 15, category: 'essential', priority: 1, icon: 'Smartphone' },
+  { name: 'WiFi Router', power_watts: 12, category: 'essential', priority: 1, icon: 'Wifi' },
+  { name: 'Desktop Computer', power_watts: 250, category: 'general', priority: 3, icon: 'Monitor' },
+  { name: 'Electric Kettle', power_watts: 1500, category: 'luxury', priority: 5, icon: 'Coffee' },
+];
+
+export const TARIFF_RATES = {
+  domestic_standard: 0.12,
+  domestic_peak: 0.18,
+  domestic_off_peak: 0.08,
+  commercial: 0.15,
+};
+
+export const CO2_FACTOR_KG_PER_KWH = 0.42;
+export const TREES_PER_TONNE_CO2 = 45;</code></pre>
+</div>
+
+<!-- Module 7: useSensorData.ts -->
+<div class="module" id="useSensorData">
+  <div class="module-header">
+    <h2>7. hooks/useSensorData.ts - Sensor Data Hook</h2>
+    <p class="path">src/hooks/useSensorData.ts</p>
+    <p class="description">React hook for fetching sensor data from Supabase with polling and API posting functions.</p>
+  </div>
+  <pre><code>import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '../lib/supabase';
+import type { SensorData } from '../lib/types';
+
+interface SensorDataResult {
+  current: SensorData | null;
+  history: SensorData[];
+  loading: boolean;
+  error: string | null;
+  refetch: () =&gt; void;
+}
+
+export function useSensorData(limit: number = 48, pollInterval: number = 5000): SensorDataResult {
+  const [current, setCurrent] = useState&lt;SensorData | null&gt;(null);
+  const [history, setHistory] = useState&lt;SensorData[]&gt;([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  const fetchData = useCallback(async () =&gt; {
+    try {
+      const { data, error: fetchError } = await supabase
+        .from('sensor_data')
+        .select('*')
+        .order('recorded_at', { ascending: false })
+        .limit(limit);
+
+      if (fetchError) throw fetchError;
+
+      if (data && data.length &gt; 0) {
+        setCurrent(data[0]);
+        setHistory([...data].reverse());
+      }
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+    }
+  }, [limit]);
+
+  useEffect(() =&gt; {
+    fetchData();
+    const interval = setInterval(fetchData, pollInterval);
+    return () =&gt; clearInterval(interval);
+  }, [fetchData, pollInterval]);
+
+  return { current, history, loading, error, refetch: fetchData };
+}
+
+export function useSensorStats(days: number = 30) {
+  const [data, setData] = useState&lt;SensorData[]&gt;([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    const since = new Date(Date.now() - days * 86400000).toISOString();
+    supabase
+      .from('sensor_data')
+      .select('*')
+      .gte('recorded_at', since)
+      .order('recorded_at', { ascending: true })
+      .then(({ data: d }) =&gt; {
+        setData(d || []);
+        setLoading(false);
+      });
+  }, [days]);
+
+  return { data, loading };
+}
+
+export async function postSensorReading(reading: {
+  voltage: number;
+  current: number;
+  power?: number;
+  temperature: number;
+  humidity: number;
+  light_intensity: number;
+  panel_efficiency: number;
+  device_id?: string;
+  user_id?: string;
+}) {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const res = await fetch(`${supabaseUrl}/functions/v1/solar-api/ingest`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(reading),
+  });
+  return res.json();
+}</code></pre>
+</div>
+
+<!-- Module 8: useAuth.tsx -->
+<div class="module" id="useAuth">
+  <div class="module-header">
+    <h2>8. hooks/useAuth.tsx - Authentication Hook</h2>
+    <p class="path">src/hooks/useAuth.tsx</p>
+    <p class="description">React context and hook for Supabase authentication with sign up, sign in, and sign out.</p>
+  </div>
+  <pre><code>import { useState, useEffect, createContext, useContext, type ReactNode } from 'react';
+import type { Profile } from '../lib/types';
+import { supabase } from '../lib/supabase';
+import type { User, Session } from '@supabase/supabase-js';
+
+interface AuthContextType {
+  user: User | null;
+  profile: Profile | null;
+  session: Session | null;
+  loading: boolean;
+  signUp: (email: string, password: string, fullName: string) =&gt; Promise&lt;{ error: string | null }&gt;;
+  signIn: (email: string, password: string) =&gt; Promise&lt;{ error: string | null }&gt;;
+  signOut: () =&gt; Promise&lt;void&gt;;
+}
+
+const AuthContext = createContext&lt;AuthContextType | undefined&gt;(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState&lt;User | null&gt;(null);
+  const [profile, setProfile] = useState&lt;Profile | null&gt;(null);
+  const [session, setSession] = useState&lt;Session | null&gt;(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    supabase.auth.getSession().then(({ data: { session: s } }) =&gt; {
+      setSession(s);
+      setUser(s?.user ?? null);
+      if (s?.user) fetchProfile(s.user.id);
+      else setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) =&gt; {
+      setSession(s);
+      setUser(s?.user ?? null);
+      if (s?.user) {
+        fetchProfile(s.user.id);
+      } else {
+        setProfile(null);
+        setLoading(false);
+      }
+    });
+
+    return () =&gt; subscription.unsubscribe();
+  }, []);
+
+  async function fetchProfile(userId: string) {
+    const { data } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
+    setProfile(data);
+    setLoading(false);
+  }
+
+  async function signUp(email: string, password: string, fullName: string) {
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) return { error: error.message };
+
+    const userId = (await supabase.auth.getUser()).data.user?.id;
+    if (userId) {
+      await supabase.from('profiles').insert({
+        id: userId,
+        email,
+        full_name: fullName,
+        role: 'user',
+        household_name: 'My Home',
+      });
+    }
+    return { error: null };
+  }
+
+  async function signIn(email: string, password: string) {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return { error: error?.message ?? null };
+  }
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    setUser(null);
+    setProfile(null);
+    setSession(null);
+  }
+
+  return (
+    &lt;AuthContext.Provider value={{ user, profile, session, loading, signUp, signIn, signOut }}&gt;
+      {children}
+    &lt;/AuthContext.Provider&gt;
+  );
+}
+
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  return ctx;
+}</code></pre>
+</div>
+
+<!-- Module 9: useToast.tsx -->
+<div class="module" id="useToast">
+  <div class="module-header">
+    <h2>9. hooks/useToast.tsx - Toast Notifications</h2>
+    <p class="path">src/hooks/useToast.tsx</p>
+    <p class="description">Toast notification system with animated alerts for info, warning, critical, and success messages.</p>
+  </div>
+  <pre><code>import { createContext, useContext, useState, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { AlertTriangle, XCircle, Info, CheckCircle, X } from 'lucide-react';
+
+type ToastSeverity = 'info' | 'warning' | 'critical' | 'success';
+
+interface Toast {
+  id: string;
+  severity: ToastSeverity;
+  title: string;
+  message: string;
+  timestamp: number;
+}
+
+interface ToastContextValue {
+  toasts: Toast[];
+  addToast: (severity: ToastSeverity, title: string, message: string) =&gt; void;
+  removeToast: (id: string) =&gt; void;
+  clearAll: () =&gt; void;
+}
+
+const ToastContext = createContext&lt;ToastContextValue | null&gt;(null);
+
+export function useToast() {
+  const ctx = useContext(ToastContext);
+  if (!ctx) throw new Error('useToast must be used within ToastProvider');
+  return ctx;
+}
+
+let idCounter = 0;
+
+export function ToastProvider({ children }: { children: React.ReactNode }) {
+  const [toasts, setToasts] = useState&lt;Toast[]&gt;([]);
+  const timers = useRef&lt;Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;&gt;(new Map());
+
+  const removeToast = useCallback((id: string) =&gt; {
+    setToasts(prev =&gt; prev.filter(t =&gt; t.id !== id));
+    const timer = timers.current.get(id);
+    if (timer) {
+      clearTimeout(timer);
+      timers.current.delete(id);
+    }
+  }, []);
+
+  const addToast = useCallback((severity: ToastSeverity, title: string, message: string) =&gt; {
+    const id = `toast-${++idCounter}`;
+    const toast: Toast = { id, severity, title, message, timestamp: Date.now() };
+    setToasts(prev =&gt; [toast, ...prev].slice(0, 8));
+
+    if (severity !== 'critical') {
+      const ms = severity === 'warning' ? 10000 : 6000;
+      timers.current.set(id, setTimeout(() =&gt; removeToast(id), ms));
+    }
+  }, [removeToast]);
+
+  const clearAll = useCallback(() =&gt; {
+    setToasts([]);
+    timers.current.forEach(t =&gt; clearTimeout(t));
+    timers.current.clear();
+  }, []);
+
+  return (
+    &lt;ToastContext.Provider value={{ toasts, addToast, removeToast, clearAll }}&gt;
+      {children}
+      &lt;ToastContainer toasts={toasts} onRemove={removeToast} /&gt;
+    &lt;/ToastContext.Provider&gt;
+  );
+}
+
+const severityConfig = {
+  critical: { icon: XCircle, borderColor: 'border-rose-500/30', bgColor: 'bg-rose-500/[0.07]', iconColor: 'text-rose-400', accentBg: 'bg-rose-500' },
+  warning: { icon: AlertTriangle, borderColor: 'border-amber-500/30', bgColor: 'bg-amber-500/[0.07]', iconColor: 'text-amber-400', accentBg: 'bg-amber-500' },
+  info: { icon: Info, borderColor: 'border-sky-500/30', bgColor: 'bg-sky-500/[0.07]', iconColor: 'text-sky-400', accentBg: 'bg-sky-500' },
+  success: { icon: CheckCircle, borderColor: 'border-emerald-500/30', bgColor: 'bg-emerald-500/[0.07]', iconColor: 'text-emerald-400', accentBg: 'bg-emerald-500' },
+};
+
+function ToastContainer({ toasts, onRemove }: { toasts: Toast[]; onRemove: (id: string) =&gt; void }) {
+  if (toasts.length === 0) return null;
+
+  return createPortal(
+    &lt;div className="fixed top-4 right-4 z-[9999] flex flex-col gap-2 w-[380px] max-w-[calc(100vw-2rem)] pointer-events-none"&gt;
+      &lt;AnimatePresence mode="popLayout"&gt;
+        {toasts.map(toast =&gt; {
+          const cfg = severityConfig[toast.severity];
+          const Icon = cfg.icon;
+          return (
+            &lt;motion.div
+              key={toast.id}
+              layout
+              initial={{ opacity: 0, x: 80, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 80, scale: 0.9 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className={`pointer-events-auto relative overflow-hidden rounded-xl ${cfg.bgColor} backdrop-blur-xl border ${cfg.borderColor} shadow-2xl shadow-black/30`}
+            &gt;
+              &lt;div className={`absolute left-0 top-0 bottom-0 w-1 ${cfg.accentBg}`} /&gt;
+              &lt;div className="flex items-start gap-3 p-4 pl-5"&gt;
+                &lt;Icon className={`w-5 h-5 mt-0.5 flex-shrink-0 ${cfg.iconColor}`} /&gt;
+                &lt;div className="flex-1 min-w-0"&gt;
+                  &lt;p className="text-sm font-semibold text-white leading-tight"&gt;{toast.title}&lt;/p&gt;
+                  &lt;p className="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-3"&gt;{toast.message}&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;button onClick={() =&gt; onRemove(toast.id)} className="flex-shrink-0 p-1 rounded-md hover:bg-white/10 transition-colors text-slate-500 hover:text-white"&gt;
+                  &lt;X className="w-3.5 h-3.5" /&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/motion.div&gt;
+          );
+        })}
+      &lt;/AnimatePresence&gt;
+    &lt;/div&gt;,
+    document.body
+  );
+}</code></pre>
+</div>
+
+<!-- Module 10: MetricCard.tsx -->
+<div class="module" id="MetricCard">
+  <div class="module-header">
+    <h2>10. common/MetricCard.tsx - Metric Display</h2>
+    <p class="path">src/components/common/MetricCard.tsx</p>
+    <p class="description">Reusable card component for displaying key metrics with icons and trend indicators.</p>
+  </div>
+  <pre><code>import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
+
+interface MetricCardProps {
+  title: string;
+  value: string | number;
+  subtitle?: string;
+  icon: ReactNode;
+  trend?: { value: number; positive: boolean };
+  color?: string;
+}
+
+export default function MetricCard({ title, value, subtitle, icon, trend, color = 'emerald' }: MetricCardProps) {
+  const colors: Record&lt;string, { bg: string; text: string; border: string }&gt; = {
+    emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' },
+    amber: { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' },
+    sky: { bg: 'bg-sky-500/10', text: 'text-sky-400', border: 'border-sky-500/20' },
+    rose: { bg: 'bg-rose-500/10', text: 'text-rose-400', border: 'border-rose-500/20' },
+    orange: { bg: 'bg-orange-500/10', text: 'text-orange-400', border: 'border-orange-500/20' },
+    teal: { bg: 'bg-teal-500/10', text: 'text-teal-400', border: 'border-teal-500/20' },
+  };
+  const c = colors[color] || colors.emerald;
+
+  return (
+    &lt;motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`bg-white/[0.03] backdrop-blur border border-white/5 rounded-xl p-5 hover:${c.border} transition-all`}
+    &gt;
+      &lt;div className="flex items-start justify-between"&gt;
+        &lt;div className={`w-10 h-10 rounded-lg ${c.bg} flex items-center justify-center`}&gt;
+          &lt;span className={c.text}&gt;{icon}&lt;/span&gt;
+        &lt;/div&gt;
+        {trend && (
+          &lt;span className={`text-xs font-medium ${trend.positive ? 'text-emerald-400' : 'text-rose-400'}`}&gt;
+            {trend.positive ? '+' : ''}{trend.value}%
+          &lt;/span&gt;
+        )}
+      &lt;/div&gt;
+      &lt;p className="text-2xl font-bold text-white mt-3"&gt;{value}&lt;/p&gt;
+      &lt;p className="text-sm text-slate-400 mt-1"&gt;{title}&lt;/p&gt;
+      {subtitle && &lt;p className="text-xs text-slate-600 mt-0.5"&gt;{subtitle}&lt;/p&gt;}
+    &lt;/motion.div&gt;
+  );
+}</code></pre>
+</div>
+
+<!-- Module 11: GaugeCard.tsx -->
+<div class="module" id="GaugeCard">
+  <div class="module-header">
+    <h2>11. common/GaugeCard.tsx - Gauge Display</h2>
+    <p class="path">src/components/common/GaugeCard.tsx</p>
+    <p class="description">Animated circular gauge component for visualizing sensor values as percentages.</p>
+  </div>
+  <pre><code>import { motion } from 'framer-motion';
+
+interface GaugeCardProps {
+  title: string;
+  value: number;
+  unit: string;
+  max: number;
+  color?: string;
+  icon: React.ReactNode;
+  decimals?: number;
+}
+
+export default function GaugeCard({ title, value, unit, max, color = 'emerald', icon, decimals = 1 }: GaugeCardProps) {
+  const percentage = Math.min(100, (value / max) * 100);
+  const colorMap: Record&lt;string, { stroke: string; bg: string; text: string }&gt; = {
+    emerald: { stroke: '#10b981', bg: 'rgba(16,185,129,0.1)', text: 'text-emerald-400' },
+    amber: { stroke: '#f59e0b', bg: 'rgba(245,158,11,0.1)', text: 'text-amber-400' },
+    sky: { stroke: '#0ea5e9', bg: 'rgba(14,165,233,0.1)', text: 'text-sky-400' },
+    rose: { stroke: '#f43f5e', bg: 'rgba(244,63,94,0.1)', text: 'text-rose-400' },
+    orange: { stroke: '#f97316', bg: 'rgba(249,115,22,0.1)', text: 'text-orange-400' },
+    teal: { stroke: '#14b8a6', bg: 'rgba(20,184,166,0.1)', text: 'text-teal-400' },
+  };
+  const c = colorMap[color] || colorMap.emerald;
+
+  const radius = 40;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+
+  return (
+    &lt;motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-white/[0.03] backdrop-blur border border-white/5 rounded-xl p-5 hover:border-white/10 transition-all"
+    &gt;
+      &lt;div className="flex items-center gap-2 mb-3"&gt;
+        &lt;div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: c.bg }}&gt;
+          &lt;span className={c.text}&gt;{icon}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span className="text-sm text-slate-400"&gt;{title}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div className="flex items-center gap-4"&gt;
+        &lt;svg width="90" height="90" viewBox="0 0 90 90"&gt;
+          &lt;circle cx="45" cy="45" r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="6" /&gt;
+          &lt;motion.circle
+            cx="45" cy="45" r={radius} fill="none"
+            stroke={c.stroke}
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+            transform="rotate(-90 45 45)"
+          /&gt;
+          &lt;text x="45" y="45" textAnchor="middle" dominantBaseline="central" className="fill-white text-lg font-bold" fontSize="14"&gt;
+            {value.toFixed(decimals)}
+          &lt;/text&gt;
+        &lt;/svg&gt;
+        &lt;div&gt;
+          &lt;p className={`text-2xl font-bold ${c.text}`}&gt;{value.toFixed(decimals)}&lt;/p&gt;
+          &lt;p className="text-xs text-slate-500"&gt;{unit}&lt;/p&gt;
+          &lt;p className="text-xs text-slate-600 mt-1"&gt;{percentage.toFixed(0)}% of max&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/motion.div&gt;
+  );
+}</code></pre>
+</div>
+
+<!-- Module 12: AppLayout.tsx -->
+<div class="module" id="AppLayout">
+  <div class="module-header">
+    <h2>12. layout/AppLayout.tsx - Main Layout</h2>
+    <p class="path">src/components/layout/AppLayout.tsx</p>
+    <p class="description">Main application layout with collapsible sidebar and header.</p>
+  </div>
+  <pre><code>import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Header from './Header';
+
+export default function AppLayout() {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  return (
+    &lt;div className="min-h-screen bg-slate-950 text-white"&gt;
+      &lt;Sidebar collapsed={sidebarCollapsed} onToggleCollapse={() =&gt; setSidebarCollapsed(c =&gt; !c)} /&gt;
+      &lt;div className={`transition-all duration-300 ${sidebarCollapsed ? 'pl-16' : 'pl-60'}`}&gt;
+        &lt;Header /&gt;
+        &lt;main className="p-6"&gt;
+          &lt;Outlet /&gt;
+        &lt;/main&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+</div>
+
+<!-- Module 13: DashboardPage.tsx -->
+<div class="module" id="Dashboard">
+  <div class="module-header">
+    <h2>13. dashboard/DashboardPage.tsx - Main Dashboard</h2>
+    <p class="path">src/components/dashboard/DashboardPage.tsx</p>
+    <p class="description">Main dashboard with real-time sensor data, charts for power/light intensity/voltage/current/temperature/humidity, and alerts.</p>
+  </div>
+  <pre><code>import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Sun, Zap, Thermometer, Droplets, Lightbulb, Activity, Battery, Wifi, WifiOff, AlertCircle, RefreshCw, Database } from 'lucide-react';
+import GaugeCard from '../common/GaugeCard';
+import MetricCard from '../common/MetricCard';
+import { useSensorData, postSensorReading } from '../../hooks/useSensorData';
+import { useToast } from '../../hooks/useToast';
+import { generateMockSensorData, generateMockAlerts } from '../../lib/mock';
+import { detectFaults } from '../../lib/engine';
+import type { SensorData, Alert } from '../../lib/types';
+
+export default function DashboardPage() {
+  const { current: liveReading, history: sensorHistory, loading: sensorLoading, error: sensorError, refetch } = useSensorData(48, 5000);
+  const { addToast } = useToast();
+  const [alerts, setAlerts] = useState&lt;Alert[]&gt;([]);
+  const [fallbackMode, setFallbackMode] = useState(false);
+  const [simulatedReading, setSimulatedReading] = useState&lt;SensorData | null&gt;(null);
+  const [syncing, setSyncing] = useState(false);
+  const [lastSync, setLastSync] = useState&lt;string | null&gt;(null);
+  const prevFaultCount = useRef(0);
+  const prevDataStatus = useRef&lt;boolean | null&gt;(null);
+
+  useEffect(() =&gt; {
+    if (sensorError || (sensorLoading === false && !liveReading)) {
+      setFallbackMode(true);
+      if (!simulatedReading) {
+        const mockData = generateMockSensorData(1);
+        setSimulatedReading(mockData[0]);
+      }
+      if (prevDataStatus.current !== false) {
+        addToast('warning', 'Demo Mode Active', 'No sensor data from device. Showing simulated readings.');
+      }
+      prevDataStatus.current = false;
+    } else if (liveReading) {
+      setFallbackMode(false);
+      setSimulatedReading(liveReading);
+      if (prevDataStatus.current === false) {
+        addToast('success', 'Live Data Connected', `Receiving real sensor data. Power: ${liveReading.power.toFixed(1)}W`);
+      }
+      prevDataStatus.current = true;
+    }
+  }, [sensorError, sensorLoading, liveReading]);
+
+  // Simulation mode updates every 5 seconds
+  useEffect(() =&gt; {
+    if (!fallbackMode || !simulatedReading) return;
+    const interval = setInterval(() =&gt; {
+      setSimulatedReading(prev =&gt; {
+        if (!prev) return prev;
+        const hour = new Date().getHours();
+        const solarFactor = Math.max(0, Math.sin(((hour + 6) / 12) * Math.PI));
+        const cloudFactor = 0.7 + Math.random() * 0.3;
+        const voltage = 18 + solarFactor * 6 * cloudFactor + (Math.random() - 0.5) * 2;
+        const current = solarFactor * 5.5 * cloudFactor + (Math.random() - 0.5) * 0.5;
+        const newReading = {
+          ...prev,
+          voltage: Math.round(Math.max(0, voltage) * 100) / 100,
+          current: Math.round(Math.max(0, current) * 100) / 100,
+          power: Math.round(Math.max(0, voltage * current) * 100) / 100,
+          temperature: Math.round((prev.temperature + (Math.random() - 0.5) * 2) * 10) / 10,
+          humidity: Math.round(Math.max(0, Math.min(100, prev.humidity + (Math.random() - 0.5) * 5)) * 10) / 10,
+          light_intensity: Math.round(Math.max(0, solarFactor * 1000 * cloudFactor + (Math.random() - 0.5) * 100) * 10) / 10,
+          panel_efficiency: Math.round(Math.max(0, 15 + solarFactor * 8 * cloudFactor + (Math.random() - 0.5) * 2) * 10) / 10,
+          recorded_at: new Date().toISOString(),
+        };
+        postSensorReading(newReading).catch(() =&gt; {});
+        return newReading;
+      });
+    }, 5000);
+    return () =&gt; clearInterval(interval);
+  }, [fallbackMode, simulatedReading]);
+
+  const displayReading = simulatedReading || liveReading;
+  if (!displayReading) return null;
+
+  const chartData = (sensorHistory.length &gt; 0 ? sensorHistory : generateMockSensorData(48)).map(d =&gt; ({
+    time: new Date(d.recorded_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    power: d.power,
+    voltage: d.voltage,
+    current: d.current,
+    light_intensity: d.light_intensity,
+    temperature: d.temperature,
+    humidity: d.humidity,
+  }));
+
+  return (
+    &lt;div className="space-y-6"&gt;
+      {/* Metric Cards */}
+      &lt;div className="grid grid-cols-2 md:grid-cols-4 gap-4"&gt;
+        &lt;MetricCard title="Solar Power" value={`${displayReading.power.toFixed(1)} W`} subtitle="Live generation" icon={&lt;Zap className="w-5 h-5" /&gt;} color="amber" trend={{ value: 12, positive: true }} /&gt;
+        &lt;MetricCard title="Voltage" value={`${displayReading.voltage.toFixed(1)} V`} subtitle="Panel output" icon={&lt;Activity className="w-5 h-5" /&gt;} color={displayReading.voltage &lt; 16 ? 'rose' : 'emerald'} /&gt;
+        &lt;MetricCard title="Current" value={`${displayReading.current.toFixed(2)} A`} subtitle="Current flow" icon={&lt;Battery className="w-5 h-5" /&gt;} color="sky" /&gt;
+        &lt;MetricCard title="Light Intensity" value={`${Math.round(displayReading.light_intensity)} lux`} subtitle="Solar irradiance" icon={&lt;Lightbulb className="w-5 h-5" /&gt;} color="amber" /&gt;
+      &lt;/div&gt;
+
+      {/* Gauge Cards */}
+      &lt;div className="grid grid-cols-2 md:grid-cols-4 gap-4"&gt;
+        &lt;GaugeCard title="Power Output" value={displayReading.power} unit="Watts" max={300} color="amber" icon={&lt;Zap className="w-4 h-4" /&gt;} /&gt;
+        &lt;GaugeCard title="Temperature" value={displayReading.temperature} unit="Celsius" max={70} color="rose" icon={&lt;Thermometer className="w-4 h-4" /&gt;} decimals={0} /&gt;
+        &lt;GaugeCard title="Light Intensity" value={displayReading.light_intensity} unit="Lux" max={1000} color="amber" icon={&lt;Lightbulb className="w-4 h-4" /&gt;} decimals={0} /&gt;
+        &lt;GaugeCard title="Panel Efficiency" value={displayReading.panel_efficiency} unit="Percent" max={25} color="emerald" icon={&lt;Sun className="w-4 h-4" /&gt;} decimals={1} /&gt;
+      &lt;/div&gt;
+
+      {/* Charts - Power, Light Intensity, Voltage/Current, Temperature/Humidity */}
+      {/* ... AreaChart components for real-time visualization ... */}
+    &lt;/div&gt;
+  );
+}</code></pre>
+</div>
+
+<!-- Module 14: PredictionPage.tsx -->
+<div class="module" id="Prediction">
+  <div class="module-header">
+    <h2>14. prediction/PredictionPage.tsx - AI Predictions</h2>
+    <p class="path">src/components/prediction/PredictionPage.tsx</p>
+    <p class="description">AI-powered solar power prediction with hourly/weekly forecasts and model parameters display.</p>
+  </div>
+  <pre><code>import { useState, useMemo, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { Brain, TrendingUp, BarChart3, Target, Clock, Calendar } from 'lucide-react';
+import MetricCard from '../common/MetricCard';
+import { generateMockSensorData } from '../../lib/mock';
+import { predictSolarPower } from '../../lib/engine';
+import { useSensorData } from '../../hooks/useSensorData';
+import { useToast } from '../../hooks/useToast';
+
+export default function PredictionPage() {
+  const [viewMode, setViewMode] = useState&lt;'hourly' | 'weekly'&gt;('hourly');
+  const { addToast } = useToast();
+  const prevConfidence = useRef&lt;number | null&gt;(null);
+
+  const { current: liveReading } = useSensorData(1, 10000);
+  const mockData = useMemo(() =&gt; generateMockSensorData(1), []);
+  const latest = liveReading || mockData[0] || { temperature: 28, humidity: 50, light_intensity: 600 };
+
+  const prediction = useMemo(() =&gt;
+    predictSolarPower(latest.temperature, latest.humidity, latest.light_intensity, 25),
+    [latest.temperature, latest.humidity, latest.light_intensity]
+  );
+
+  const hourlyData = prediction.hourlyForecast.map(d =&gt; ({
+    hour: `${d.hour}:00`,
+    power: d.power,
+    energy: Math.round(d.power * 0.25 * 100) / 100,
+  }));
+
+  const weeklyData = Array.from({ length: 7 }, (_, i) =&gt; {
+    const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const factor = 0.7 + Math.random() * 0.3;
+    const peakPower = prediction.predictedPower * factor;
+    return {
+      day: dayNames[i],
+      power: Math.round(peakPower * 100) / 100,
+      energy: Math.round(peakPower * 5 * 100) / 100,
+    };
+  });
+
+  const totalDailyEnergy = Math.round(hourlyData.reduce((s, d) =&gt; s + d.energy, 0) * 100) / 100;
+  const estimatedBill = Math.round(totalDailyEnergy * 0.12 * 100) / 100;
+
+  return (
+    &lt;div className="space-y-6"&gt;
+      {/* Key Metrics */}
+      &lt;div className="grid grid-cols-2 md:grid-cols-4 gap-4"&gt;
+        &lt;MetricCard title="Predicted Peak Power" value={`${prediction.predictedPower.toFixed(1)} W`} subtitle="Maximum output" icon={&lt;TrendingUp className="w-5 h-5" /&gt;} color="amber" /&gt;
+        &lt;MetricCard title="Daily Energy Forecast" value={`${totalDailyEnergy} kWh`} subtitle="Total generation" icon={&lt;BarChart3 className="w-5 h-5" /&gt;} color="emerald" /&gt;
+        &lt;MetricCard title="AI Confidence" value={`${prediction.confidence}%`} subtitle="Model accuracy" icon={&lt;Target className="w-5 h-5" /&gt;} color="sky" /&gt;
+        &lt;MetricCard title="Est. Bill Savings" value={`$${estimatedBill}`} subtitle="Daily savings" icon={&lt;Brain className="w-5 h-5" /&gt;} color="teal" /&gt;
+      &lt;/div&gt;
+
+      {/* Prediction Chart and Model Info */}
+      {/* ... AreaChart for hourly forecast and BarChart for weekly ... */}
+    &lt;/div&gt;
+  );
+}</code></pre>
+</div>
+
+<!-- Module 15: Edge Function -->
+<div class="module" id="EdgeFunction">
+  <div class="module-header">
+    <h2>15. supabase/functions/solar-api - Edge Function API</h2>
+    <p class="path">supabase/functions/solar-api/index.ts</p>
+    <p class="description">Deno edge function handling sensor data ingestion, Google Sheet sync, fault detection, predictions, and multiple API endpoints.</p>
+  </div>
+  <pre><code>import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "npm:@supabase/supabase-js@2.57.4";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
+};
+
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz.../exec";
+
+function sb() {
+  return createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+  );
+}
+
+// Helper functions: predictSolarPower, detectFaults, calculateLoadRecommendations
+// ...
+
+Deno.serve(async (req: Request) =&gt; {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: 200, headers: corsHeaders });
+  }
+
+  const url = new URL(req.url);
+  const path = url.pathname.replace("/solar-api", "").replace(/^\/+/, "");
+
+  // /debug - Debug endpoint to see what hardware is sending
+  // /ingest - Store sensor data in Supabase + forward to Google Sheet + run fault detection + prediction
+  // /sync-sheet - Backfill Google Sheet rows into Supabase
+  // /sensor-data - GET/POST sensor data
+  // /sensor-stats - Aggregated statistics
+  // /alerts - Get system alerts
+  // /predict-power - AI power prediction
+  // /detect-fault - Fault detection endpoint
+  // /load-management - Smart load recommendations
+  // /bill-estimation - Electricity bill calculation
+  // /weather - Mock weather data
+  // /analytics - Aggregated analytics
+  // /sustainability - CO2 reduction metrics
+  // /status - Health check endpoint
+
+  // ... endpoint implementations ...
+});</code></pre>
+</div>
+
+<!-- Module 16: Database Schema -->
+<div class="module" id="Schema">
+  <div class="module-header">
+    <h2>16. Database Schema - SQL Migration</h2>
+    <p class="path">supabase/migrations/001_solar_monitoring_schema.sql</p>
+    <p class="description">Complete PostgreSQL schema with tables for profiles, sensor_data, predictions, alerts, sustainability_metrics, appliance_usage, weather_logs, billing_data, and load_management_logs.</p>
+  </div>
+  <pre><code>-- Profiles table
+CREATE TABLE IF NOT EXISTS profiles (
+  id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email text NOT NULL,
+  full_name text DEFAULT '',
+  role text DEFAULT 'user' CHECK (role IN ('admin', 'user')),
+  household_name text DEFAULT 'My Home',
+  avatar_url text DEFAULT '',
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+-- Sensor data table
+CREATE TABLE IF NOT EXISTS sensor_data (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  voltage numeric DEFAULT 0,
+  current numeric DEFAULT 0,
+  power numeric DEFAULT 0,
+  temperature numeric DEFAULT 0,
+  humidity numeric DEFAULT 0,
+  light_intensity numeric DEFAULT 0,
+  panel_efficiency numeric DEFAULT 0,
+  device_id text DEFAULT 'arduino_01',
+  is_online boolean DEFAULT true,
+  recorded_at timestamptz DEFAULT now()
+);
+
+-- Predictions table
+CREATE TABLE IF NOT EXISTS predictions (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  predicted_power numeric DEFAULT 0,
+  predicted_energy numeric DEFAULT 0,
+  predicted_bill numeric DEFAULT 0,
+  confidence_score numeric DEFAULT 0,
+  prediction_type text DEFAULT 'hourly',
+  model_version text DEFAULT 'rf_v1',
+  input_features jsonb DEFAULT '{}',
+  target_date timestamptz DEFAULT now(),
+  created_at timestamptz DEFAULT now()
+);
+
+-- Alerts table
+CREATE TABLE IF NOT EXISTS alerts (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  alert_type text NOT NULL,
+  severity text DEFAULT 'info',
+  title text NOT NULL,
+  message text NOT NULL,
+  is_read boolean DEFAULT false,
+  sensor_value numeric DEFAULT 0,
+  threshold_value numeric DEFAULT 0,
+  created_at timestamptz DEFAULT now()
+);
+
+-- Additional tables: sustainability_metrics, appliance_usage,
+-- weather_logs, billing_data, load_management_logs
+-- ...
+
+-- RLS Policies enabled on all tables
+-- Indexes for performance
+CREATE INDEX idx_sensor_data_user_id ON sensor_data(user_id);
+CREATE INDEX idx_sensor_data_recorded_at ON sensor_data(recorded_at DESC);</code></pre>
+</div>
+
+</body>
+</html>
