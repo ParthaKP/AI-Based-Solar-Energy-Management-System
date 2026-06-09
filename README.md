@@ -74,11 +74,9 @@ POST https://your-project.supabase.co/functions/v1/solar-api/ingest
 }
 ```
 
-### Arduino/ESP8266 Example
+### Arduino Example
 
 ```cpp
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
 
 HTTPClient http;
 http.begin("https://your-project.supabase.co/functions/v1/solar-api/ingest");
